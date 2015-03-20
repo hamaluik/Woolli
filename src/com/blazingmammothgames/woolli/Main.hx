@@ -1,5 +1,6 @@
 package com.blazingmammothgames.woolli ;
 
+import com.blazingmammothgames.woolli.demos.platformer.G_Platformer;
 import openfl.display.Sprite;
 import openfl.events.Event;
 import openfl.Lib;
@@ -27,7 +28,7 @@ class Main extends Sprite
 		if (initialized) return;
 		initialized = true;
 
-		splash = new Splash(this/*, new G_WintersHere()*/);
+		splash = new Splash(this, new G_Platformer());
 	}
 
 	/* SETUP */

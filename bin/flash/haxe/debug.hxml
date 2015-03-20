@@ -19,6 +19,7 @@
 -D tools=2.1.3
 -D flash-use-stage
 -D no-compilation
+-D debugdraw
 -D openfl-flash
 -D fdb
 -D web

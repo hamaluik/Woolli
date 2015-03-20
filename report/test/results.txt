@@ -1,0 +1,2 @@
+Tests PASSED under as3 using summary client
+END

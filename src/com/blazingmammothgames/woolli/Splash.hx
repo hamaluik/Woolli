@@ -1,6 +1,7 @@
 package com.blazingmammothgames.woolli;
 
-//import com.blazingmammothgames.woolli.core.IGame;
+import com.blazingmammothgames.woolli.core.IGame;
+
 import haxe.Timer;
 import openfl.display.Bitmap;
 import openfl.display.Sprite;
@@ -16,7 +17,7 @@ import openfl.media.SoundChannel;
 class Splash
 {
 	private var main:Sprite;
-	//private var game:IGame;
+	private var game:IGame;
 	
 	private var roar:Sound;
 	private var channel:SoundChannel;
@@ -28,14 +29,14 @@ class Splash
 	private var shaking:Bool = true;
 	private var startTime:Float = 0;
 
-	public function new(main:Sprite/*, game:IGame*/) 
+	public function new(main:Sprite, game:IGame) 
 	{
 		this.main = main;
-		//this.game = game;
+		this.game = game;
 		
 		#if disableSplash
-			//game.onInit(main);
-			//main.addEventListener(Event.ENTER_FRAME, game.onFrame);
+			game.onInit(main);
+			main.addEventListener(Event.ENTER_FRAME, game.onFrame);
 		#else
 			// init here
 			#if flash
@@ -88,14 +89,9 @@ class Splash
 			{
 				main.removeEventListener(Event.ENTER_FRAME, onFrame);
 				main.removeChild(container);
-				//game.onInit(main);
-				//main.addEventListener(Event.ENTER_FRAME, game.onFrame);
+				game.onInit(main);
+				main.addEventListener(Event.ENTER_FRAME, game.onFrame);
 			}
 		}
-	}
-	
-	public function floatAdd(a:Float, b:Float):Float
-	{
-		return a + b;
 	}
 }

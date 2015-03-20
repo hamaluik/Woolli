@@ -31,6 +31,6 @@
 	<!--haxedef name="profiling" /-->
 	
 	<!-- enable debug draw -->
-	<!-- <haxedef name="debugdraw" /> -->
+	<haxedef name="debugdraw" />
 	
 </project>
