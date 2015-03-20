@@ -5,8 +5,8 @@ import com.blazingmammothgames.woolli.core.DemandsTest;
 import com.blazingmammothgames.woolli.core.EntityStateMachineTest;
 import com.blazingmammothgames.woolli.core.EntityStateTest;
 import com.blazingmammothgames.woolli.core.EntityTest;
-import com.blazingmammothgames.woolli.core.ESExceptionTest;
 import com.blazingmammothgames.woolli.core.UniverseTest;
+import com.blazingmammothgames.woolli.core.WoolliExceptionTest;
 
 /**
  * Auto generated Test Suite for MassiveUnit.
@@ -25,7 +25,7 @@ class TestSuite extends massive.munit.TestSuite
 		add(com.blazingmammothgames.woolli.core.EntityStateMachineTest);
 		add(com.blazingmammothgames.woolli.core.EntityStateTest);
 		add(com.blazingmammothgames.woolli.core.EntityTest);
-		add(com.blazingmammothgames.woolli.core.ESExceptionTest);
 		add(com.blazingmammothgames.woolli.core.UniverseTest);
+		add(com.blazingmammothgames.woolli.core.WoolliExceptionTest);
 	}
 }

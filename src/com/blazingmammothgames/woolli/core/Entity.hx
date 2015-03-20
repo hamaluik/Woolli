@@ -40,7 +40,7 @@ class Entity
 		if (type == null)
 			type = Type.getClass(component);
 		if (hasComponentType(type))
-			throw new ESException("Entity already has component of type '" + type + "'!", true);
+			throw new WoolliException("Entity already has component of type '" + type + "'!", true);
 		components.push(component);
 		if(updateUniverse)
 			Universe.current.onEntityChange(this);
@@ -61,7 +61,7 @@ class Entity
 			}
 		}
 		if (!removed)
-			throw new ESException("Entity didn't have a component of type '" + componentType + "'!", true);
+			throw new WoolliException("Entity didn't have a component of type '" + componentType + "'!", true);
 	}
 	
 	public function replaceComponent(newComponent:Component, type:Class<Component> = null, updateUniverse:Bool = true):Void
@@ -69,7 +69,7 @@ class Entity
 		if (type == null)
 			type = Type.getClass(newComponent);
 		if (!hasComponentType(type))
-			throw new ESException("Entity doesn't have component of type '" + type + "'!", true);
+			throw new WoolliException("Entity doesn't have component of type '" + type + "'!", true);
 		for (comp in components)
 		{
 			if (Type.getClass(comp) == type)
@@ -104,7 +104,7 @@ class Entity
 		for (component in components)
 			if (Type.getClass(component) == componentType)
 				return component;
-		throw new ESException("Entity doesn't have component of type '" + componentType + "'!", false);
+		throw new WoolliException("Entity doesn't have component of type '" + componentType + "'!", false);
 		return null;
 	}
 	

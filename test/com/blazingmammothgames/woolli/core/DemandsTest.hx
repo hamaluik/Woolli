@@ -1,11 +1,11 @@
 package com.blazingmammothgames.woolli.core;
 
-import massive.munit.Assert;
-import com.blazingmammothgames.woolli.core.Demands;
+import com.blazingmammothgames.woolli.core.WoolliException;
 import com.blazingmammothgames.woolli.core.Component;
-import com.blazingmammothgames.woolli.core.Universe;
+import com.blazingmammothgames.woolli.core.Demands;
 import com.blazingmammothgames.woolli.core.mockups.MockComponentA;
 import com.blazingmammothgames.woolli.core.mockups.MockComponentB;
+import massive.munit.Assert;
 
 class DemandsTest 
 {
@@ -73,7 +73,7 @@ class DemandsTest
 		{
 			demands.requires(Component);
 		}
-		catch (e:ESException)
+		catch (e:WoolliException)
 		{
 			exceptionThrown = true;
 		}
@@ -89,7 +89,7 @@ class DemandsTest
 		{
 			demands.lacks(Component);
 		}
-		catch (e:ESException)
+		catch (e:WoolliException)
 		{
 			exceptionThrown = true;
 		}
@@ -105,7 +105,7 @@ class DemandsTest
 		{
 			demands.lacks(Component);
 		}
-		catch (e:ESException)
+		catch (e:WoolliException)
 		{
 			exceptionThrown = true;
 		}
@@ -121,7 +121,7 @@ class DemandsTest
 		{
 			demands.requires(Component);
 		}
-		catch (e:ESException)
+		catch (e:WoolliException)
 		{
 			exceptionThrown = true;
 		}

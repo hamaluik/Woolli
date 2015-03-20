@@ -60,7 +60,7 @@ class EntityStateTest
 		{
 			es.addComponent(MockComponentA, null);
 		}
-		catch (exc:ESException)
+		catch (exc:WoolliException)
 		{
 			exceptionThrown = true;
 		}
@@ -107,7 +107,7 @@ class EntityStateTest
 		{
 			es.instantiateInstance(null, MockComponentA);
 		}
-		catch (exc:ESException)
+		catch (exc:WoolliException)
 		{
 			exceptionThrown = true;
 		}

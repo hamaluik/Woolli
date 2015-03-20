@@ -1,11 +1,11 @@
 package com.blazingmammothgames.woolli.core;
 
 import massive.munit.Assert;
-import com.blazingmammothgames.woolli.core.ESException;
+import com.blazingmammothgames.woolli.core.WoolliException;
 
-class ESExceptionTest 
+class WoolliExceptionTest 
 {
-	var instance:ESException; 
+	var instance:WoolliException; 
 	
 	public function new() 
 	{
@@ -25,7 +25,7 @@ class ESExceptionTest
 	@Before
 	public function setup():Void
 	{
-		instance = new ESException("Test message", true);
+		instance = new WoolliException("Test message", true);
 	}
 	
 	@After
@@ -48,13 +48,13 @@ class ESExceptionTest
 	@Test
 	public function constructsIgnorableString():Void
 	{
-		Assert.areEqual("ESException: Test message [can ignore]", instance.toString());
+		Assert.areEqual("Woolli Exception: Test message [can ignore]", instance.toString());
 	}
 	
 	@Test
 	public function constructsNonignorableString():Void
 	{
-		var exc:ESException = new ESException("Test message", false);
-		Assert.areEqual("ESException: Test message [non-recoverable]", exc.toString());
+		var exc:WoolliException = new WoolliException("Test message", false);
+		Assert.areEqual("Woolli Exception: Test message [non-recoverable]", exc.toString());
 	}
 }

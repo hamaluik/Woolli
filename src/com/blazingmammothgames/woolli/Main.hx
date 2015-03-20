@@ -53,8 +53,8 @@ class Main extends Sprite
 	public static function main() 
 	{
 		// static entry point
-		Lib.current.stage.align = flash.display.StageAlign.TOP_LEFT;
-		Lib.current.stage.scaleMode = flash.display.StageScaleMode.NO_SCALE;
+		Lib.current.stage.align = openfl.display.StageAlign.TOP_LEFT;
+		Lib.current.stage.scaleMode = openfl.display.StageScaleMode.NO_SCALE;
 		Lib.current.addChild(new Main());
 	}
 }

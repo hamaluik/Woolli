@@ -5,7 +5,7 @@ import haxe.CallStack;
  * ...
  * @author Kenton Hamaluik
  */
-class ESException
+class WoolliException
 {
 	public var message(default, null):String;
 	public var canIgnore(default, null):Bool;
@@ -18,6 +18,6 @@ class ESException
 	
 	public function toString()
 	{
-		return "ESException: " + this.message + " " + (this.canIgnore ? "[can ignore]" : "[non-recoverable]");
+		return "Woolli Exception: " + this.message + " " + (this.canIgnore ? "[can ignore]" : "[non-recoverable]");
 	}
 }

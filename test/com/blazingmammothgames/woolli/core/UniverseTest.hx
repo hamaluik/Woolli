@@ -5,7 +5,7 @@ import com.blazingmammothgames.woolli.core.mockups.MockComponentB;
 import com.blazingmammothgames.woolli.core.mockups.MockUniverse;
 import massive.munit.Assert;
 import com.blazingmammothgames.woolli.core.Universe;
-import com.blazingmammothgames.woolli.core.ESException;
+import com.blazingmammothgames.woolli.core.WoolliException;
 import com.blazingmammothgames.woolli.core.mockups.MockSystemA;
 import com.blazingmammothgames.woolli.core.mockups.MockSystemB;
 import com.blazingmammothgames.woolli.core.Entity;
@@ -74,7 +74,7 @@ class UniverseTest
 		{
 			universe.removeSystem(new MockSystemA());
 		}
-		catch(exception:ESException)
+		catch(exception:WoolliException)
 		{
 			exceptionThrown = true;
 		}
@@ -112,7 +112,7 @@ class UniverseTest
 		{
 			universe.removeEntity(new Entity());
 		}
-		catch(exception:ESException)
+		catch(exception:WoolliException)
 		{
 			exceptionThrown = true;
 		}

@@ -3,6 +3,7 @@ package com.blazingmammothgames.woolli.core;
 import com.blazingmammothgames.woolli.core.mockups.MockSystemA;
 import com.blazingmammothgames.woolli.core.mockups.MockComponentA;
 import com.blazingmammothgames.woolli.core.mockups.MockComponentB;
+import haxe.Log;
 import massive.munit.util.Timer;
 import massive.munit.Assert;
 import massive.munit.async.AsyncFactory;
@@ -76,7 +77,7 @@ class EntityTest
 		{
 			entity.addComponent(new Component());
 		}
-		catch (e:ESException)
+		catch (e:WoolliException)
 		{
 			exceptionThrown = true;
 		}
@@ -99,7 +100,7 @@ class EntityTest
 		{
 			entity.getComponentByType(Component);
 		}
-		catch (e:ESException)
+		catch (e:WoolliException)
 		{
 			exceptionThrown = true;
 		}
@@ -123,7 +124,7 @@ class EntityTest
 		{
 			entity.removeComponent(Component);
 		}
-		catch (exception:ESException)
+		catch (exception:WoolliException)
 		{
 			exceptionThrown = true;
 		}
@@ -143,7 +144,27 @@ class EntityTest
 		entity.addComponent(new MockComponentA());
 		entity.addComponent(new MockComponentB());
 		var compTypes:Array<Class<Component>> = entity.getComponentTypes();
-		Assert.areEqual("[class MockComponentA],[class MockComponentB]", compTypes.toString());
+		var hasA:Bool = false;
+		var hasB:Bool = false;
+		var hasOther:Bool = false;
+		for (compType in compTypes)
+		{
+			if (Type.getClassName(compType) == "com.blazingmammothgames.woolli.core.mockups.MockComponentA")
+			{
+				hasA = true;
+			}
+			else  if (Type.getClassName(compType) == "com.blazingmammothgames.woolli.core.mockups.MockComponentB")
+			{
+				hasB = true;
+			}
+			else
+			{
+				hasOther = true;
+			}
+		}
+		Assert.isTrue(hasA);
+		Assert.isTrue(hasB);
+		Assert.isFalse(hasOther);
 	}
 	
 	@Test
@@ -207,7 +228,7 @@ class EntityTest
 		{
 			entity.replaceComponent(new MockComponentA());
 		}
-		catch (exc:ESException)
+		catch (exc:WoolliException)
 		{
 			exceptionThrown = true;
 		}

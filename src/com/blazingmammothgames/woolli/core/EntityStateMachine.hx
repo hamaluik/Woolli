@@ -22,7 +22,7 @@ class EntityStateMachine
 	public function createState(name:String):EntityStateMachine
 	{
 		if (entityStates.exists(name))
-			throw new ESException("Can't add state '" + name + "' as it already exists!", false);
+			throw new WoolliException("Can't add state '" + name + "' as it already exists!", false);
 		
 		lastStateAdded = name;
 		entityStates.set(name, new EntityState());
@@ -32,7 +32,7 @@ class EntityStateMachine
 	public function ensureComponent(componentType:Class<Component>, instantiator:Entity->Component):EntityStateMachine
 	{
 		if (lastStateAdded == "")
-			throw new ESException("Must create state before adding component!", false);
+			throw new WoolliException("Must create state before adding component!", false);
 				
 		entityStates.get(lastStateAdded).addComponent(componentType, instantiator);
 		return this;
@@ -41,7 +41,7 @@ class EntityStateMachine
 	public function changeState(state:String):Void
 	{
 		if (!entityStates.exists(state))
-			throw new ESException("Entity can't switch to state: '" + state + "' as it doesn't exist!", true);
+			throw new WoolliException("Entity can't switch to state: '" + state + "' as it doesn't exist!", true);
 		var es:EntityState = entityStates.get(state);
 		for (componentType in entity.getComponentTypes())
 		{

@@ -71,7 +71,7 @@ class EntityStateMachineTest
 		{
 			esm.changeState("test");
 		}
-		catch (exc:ESException)
+		catch (exc:WoolliException)
 		{
 			exceptionThrown = true;
 		}
@@ -87,7 +87,7 @@ class EntityStateMachineTest
 		{
 			esm.createState("test");
 		}
-		catch (exc:ESException)
+		catch (exc:WoolliException)
 		{
 			exceptionThrown = true;
 		}

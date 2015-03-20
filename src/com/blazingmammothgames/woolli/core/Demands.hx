@@ -20,9 +20,9 @@ class Demands
 	public function requires(componentType:Class<Component>):Demands
 	{
 		if (inRequired(componentType))
-			throw new ESException("Component already required!", true);
+			throw new WoolliException("Component already required!", true);
 		if (inDenied(componentType))
-			throw new ESException("Component already denied!", true);
+			throw new WoolliException("Component already denied!", true);
 		mustHaves.push(componentType);
 		return this;
 	}
@@ -30,9 +30,9 @@ class Demands
 	public function lacks(componentType:Class<Component>):Demands
 	{
 		if (inRequired(componentType))
-			throw new ESException("Component already required!", true);
+			throw new WoolliException("Component already required!", true);
 		if (inDenied(componentType))
-			throw new ESException("Component already denied!", true);
+			throw new WoolliException("Component already denied!", true);
 		mustNotHaves.push(componentType);
 		return this;
 	}

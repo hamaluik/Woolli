@@ -25,16 +25,16 @@
     <class path="C:\HaxeToolkit\haxe\lib\mconsole\1,6,0" />
     <class path="C:\HaxeToolkit\haxe\lib\hamcrest\1,2,1" />
     <class path="src" />
-    <class path="bin\flash\haxe" />
+    <class path="bin\windows\neko\haxe" />
   </classpaths>
   <!-- Build options -->
   <build>
-    <option directives="openfl=2.2.8&#xA;lime=2.1.3&#xA;actuate=1.8.2&#xA;munit=2.1.0&#xA;mlib=2.0.2&#xA;mcover=2.1.1&#xA;mconsole=1.6.0&#xA;hamcrest=1.2.1&#xA;tools=2.1.3&#xA;no-compilation&#xA;debugdraw&#xA;openfl-flash&#xA;web" />
+    <option directives="openfl=2.2.8&#xA;lime=2.1.3&#xA;actuate=1.8.2&#xA;munit=2.1.0&#xA;mlib=2.0.2&#xA;mcover=2.1.1&#xA;mconsole=1.6.0&#xA;hamcrest=1.2.1&#xA;tools=2.1.3&#xA;no-compilation&#xA;debugdraw&#xA;native&#xA;lime-native&#xA;openfl-native&#xA;windows&#xA;desktop" />
     <option flashStrict="False" />
     <option noInlineOnDebug="False" />
     <option mainClass="ApplicationMain" />
     <option enabledebug="True" />
-    <option additional="-swf-version 11.2" />
+    <option additional="--remap flash:openfl&#xA;#--macro keep(&quot;com.blazingmammothgames.woolli.Main&quot;)" />
   </build>
   <!-- haxelib libraries -->
   <haxelib>

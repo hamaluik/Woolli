@@ -48,7 +48,7 @@ class Universe
 	public function removeSystem(system:System):Void
 	{
 		if (!systems.remove(system)) {
-			throw new ESException("System didn't exist!", true);
+			throw new WoolliException("System didn't exist!", true);
 		}
 		if (systemEntities.exists(system))
 			systemEntities.remove(system);
@@ -70,13 +70,13 @@ class Universe
 			onEntityChange(entity);
 		}
 		else
-			throw new ESException("Entity already existed!", true);
+			throw new WoolliException("Entity already existed!", true);
 	}
 	
 	public function removeEntity(entity:Entity):Void
 	{
 		if (!entities.remove(entity))
-			throw new ESException("Couldn't remove entity as it wasn't registered!", true);
+			throw new WoolliException("Couldn't remove entity as it wasn't registered!", true);
 		entity.enabled = false;
 		onEntityChange(entity);
 		entity = null;

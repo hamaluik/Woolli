@@ -17,7 +17,7 @@ class EntityState
 	public function addComponent(componentType:Class<Component>, instantiator:Entity->Component):Void
 	{
 		if (components.exists(Type.getClassName(componentType)))
-			throw new ESException("Can't add component type as it already exists!", true);
+			throw new WoolliException("Can't add component type as it already exists!", true);
 		components.set(Type.getClassName(componentType), new ComponentProvider(componentType, instantiator));
 	}
 	
@@ -34,7 +34,7 @@ class EntityState
 	public function instantiateInstance(entity:Entity, componentType:Class<Component>):Component
 	{
 		if (!components.exists(Type.getClassName(componentType)))
-			throw new ESException("Can't instantiate component that doesn't exist in this state!", false);
+			throw new WoolliException("Can't instantiate component that doesn't exist in this state!", false);
 		var compProvider:ComponentProvider = components.get(Type.getClassName(componentType));
 		return compProvider.instantiator(entity);
 	}
