@@ -1,0 +1,14 @@
+## Flash 9+
+-main TestMain
+
+-lib lime
+-lib openfl
+-lib actuate
+
+-lib munit
+-lib hamcrest
+-cp src
+
+-cp test
+-swf-version 11
+-swf build/as3_test.swf
