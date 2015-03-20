@@ -18,7 +18,8 @@
 	<haxelib name="munit" />
 	
 	<!-- assets -->
-	<icon path="assets/openfl.svg" />
+	<icon path="assets/blazingmammothgames_16px.png" size="16" />
+	<icon path="assets/blazingmammothgames_136px.png" size="136" />
 	<assets path="assets" />
 	
 	<!-- optimize output
