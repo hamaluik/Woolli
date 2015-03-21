@@ -1,4 +1,4 @@
-package 	com.blazingmammothgames.woolli.util;
+package com.blazingmammothgames.woolli.util;
 import haxe.ds.StringMap;
 import haxe.Timer;
 import openfl.display.Sprite;
