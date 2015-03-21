@@ -12,6 +12,11 @@ private class Profile
 {
 	public var elapsedTime:Float = 0;
 	public var startTime:Float = 0;
+	
+	public function new()
+	{
+		
+	}
 }
  
 class Profiler

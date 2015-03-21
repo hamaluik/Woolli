@@ -1,0 +1,9 @@
+-lib buddy
+-lib openfl
+-lib lime
+-lib actuate
+#--interp
+-main BehaviourMain
+-cp behaviour
+-cp src
+-neko behaviour-build/behaviour.n
