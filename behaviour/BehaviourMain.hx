@@ -5,7 +5,7 @@ using buddy.Should;
 class BehaviourMain extends BuddySuite implements Buddy {
 	public function new() {
 		// a test suite:
-		describe("Using Buddy", {
+		/*describe("Using Buddy", {
 			var experience = "?";
 			var mood = "?";
 			
@@ -26,6 +26,6 @@ class BehaviourMain extends BuddySuite implements Buddy {
 			after({
 					mood = "happy";
 			});
-		});
+		});*/
 	}
 }
