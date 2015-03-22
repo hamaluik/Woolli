@@ -75,6 +75,20 @@ abstract Vector(VectorRaw) from VectorRaw to VectorRaw
 	}
 	
 	@:op(A + B)
+	@:commutative
+	public static inline function addScalar(a:Vector, b:Float)
+	{
+		return new Vector(a.x + b, a.y + b);
+	}
+	
+	@:op(A - B)
+	@:commutative
+	public static inline function subtractScalar(a:Vector, b:Float)
+	{
+		return new Vector(a.x - b, a.y - b);
+	}
+	
+	@:op(A + B)
 	public static inline function addVectors(a:Vector, b:Vector)
 	{
 		return new Vector(a.x + b.x, a.y + b.y);
@@ -92,9 +106,19 @@ abstract Vector(VectorRaw) from VectorRaw to VectorRaw
 		return (a.x * b.y - a.y * b.x);
 	}
 	
+	@:op(A % B)
 	public static inline function dotProduct(a:Vector, b:Vector):Float
 	{
 		return a.x * b.x + a.y * b.y;
+	}
+
+	/*
+		calculates a x (b x c)
+		note: (a x b) x c = -c x (a x b)
+	*/
+	public static inline function tripleCrossProduct(a:Vector, b:Vector, c:Vector):Vector
+	{
+		return new Vector(a.y * (b.x * c.y - b.y * c.x), -a.x * (b.x * c.y - b.y * c.x));
 	}
 	
 	public static inline function roundToOne(a:Vector):Vector

@@ -12,7 +12,6 @@ class RandomBehaviour extends BuddySuite
 	public function new() 
 	{
 		describe("Using Random", {
-			it("should be able to provide a seed");
 			it("should be able to randomly flip a coin", {
 				var result:Bool = Random.bool();
 				if(result)
