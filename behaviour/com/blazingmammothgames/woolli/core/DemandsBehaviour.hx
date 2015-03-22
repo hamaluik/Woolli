@@ -7,7 +7,7 @@ using buddy.Should;
  * ...
  * @author Kenton Hamaluik
  */
-class RandomBehaviour extends BuddySuite
+class DemandsBehaviour extends BuddySuite
 {
 	public function new() 
 	{
@@ -28,6 +28,14 @@ class RandomBehaviour extends BuddySuite
 			});
 			it("should match an entity with at least one matching component");
 			it("shouldn't match an entity that contains an undesired component");
+			it("shouldn't be able to lack a component that it already requires");
+			it("shouldn't be able to require a component that it already lacks");
+			it("should throw an exception if you try to add the same component twice");
+			it("should thrown an exception if you try to restrict the same component twice");
+			it("should be able to match any entity when there are no requirements whatsoever");
+			it("shouldn't match an entity if the entity is missing a required component");
+			it("shouldn't match an entity if the entity has a restricted component");
+			it("shouldn't match an entity if the entity's component has been disabled");
 		});
 	}
 }
