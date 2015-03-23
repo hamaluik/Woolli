@@ -27,7 +27,7 @@ class EntityStateBehaviour extends BuddySuite
 			});
 			it("should throw an exception if you attempt to add more than one component of the same type", {
 				es.addComponent(MockComponentA, null);
-				es.addComponent.bind(MockComponentA, null).should.throwValue(WoolliException);
+				es.addComponent.bind(MockComponentA, null).should.throwType(WoolliException);
 			});
 			it("should allow you to check if the state has a component by type", {
 				es.addComponent(MockComponentA, null);

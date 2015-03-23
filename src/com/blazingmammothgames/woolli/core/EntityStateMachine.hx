@@ -29,12 +29,12 @@ class EntityStateMachine
 		return this;
 	}
 	
-	public function ensureComponent(componentType:Class<Component>, instantiator:Entity->Component):EntityStateMachine
+	public function ensureComponent(componentType:Class<Component>, instantiator:Entity->Component, ?retainInstance:Bool):EntityStateMachine
 	{
 		if (lastStateAdded == "")
 			throw new WoolliException("Must create state before adding component!", false);
 				
-		entityStates.get(lastStateAdded).addComponent(componentType, instantiator);
+		entityStates.get(lastStateAdded).addComponent(componentType, instantiator, retainInstance);
 		return this;
 	}
 	
@@ -47,11 +47,18 @@ class EntityStateMachine
 		{
 			if (es.hasComponent(componentType))
 			{
-				// we need to keep the component around
-				// if there's an instantiator, reset the component
-				if (es.hasInstantiator(componentType))
+				// see we need to keep the component around
+				if (!es.retainComponentInstance(componentType))
 				{
-					entity.replaceComponent(es.instantiateInstance(entity, componentType), componentType, false);
+					// if there's an instantiator, reset the component
+					if(es.hasInstantiator(componentType))
+					{
+						entity.replaceComponent(es.instantiateInstance(entity, componentType), componentType, false);
+					}
+					else
+					{
+						entity.replaceComponent(Type.createInstance(componentType, []), componentType, false);
+					}
 				}
 				// otherwise, leave it alone
 			}
