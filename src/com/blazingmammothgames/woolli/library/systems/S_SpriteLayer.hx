@@ -3,7 +3,7 @@ package com.blazingmammothgames.woolli.library.systems;
 import com.blazingmammothgames.woolli.core.Demands;
 import com.blazingmammothgames.woolli.core.System;
 import com.blazingmammothgames.woolli.core.Entity;
-import com.blazingmammothgames.util.Vector;
+import com.blazingmammothgames.woolli.util.Vector;
 import com.blazingmammothgames.woolli.library.components.C_AABB;
 import com.blazingmammothgames.woolli.library.components.C_Sprite;
 import com.blazingmammothgames.woolli.library.components.C_TileSheet;
