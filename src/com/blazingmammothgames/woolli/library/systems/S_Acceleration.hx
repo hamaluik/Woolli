@@ -6,10 +6,8 @@ import com.blazingmammothgames.woolli.core.Entity;
 import com.blazingmammothgames.woolli.library.components.C_Acceleration;
 import com.blazingmammothgames.woolli.library.components.C_Velocity;
 
-/**
- * ...
- * @author Kenton Hamaluik
- */
+@author("Kenton Hamaluik")
+@description("Changes the velocity of every bound entity by their acceleration each frame. Operates on all entities with #C_Acceleration and #C_Velocity components.")
 class S_Acceleration extends System
 {
 	public function new() 
@@ -17,6 +15,7 @@ class S_Acceleration extends System
 		super(new Demands().requires(C_Acceleration).requires(C_Velocity));
 	}
 	
+	@description("Called each frame, it updates shit")
 	override public function processEntities(dt:Float, entities:Array<Entity>):Void
 	{
 		for (entity in entities)

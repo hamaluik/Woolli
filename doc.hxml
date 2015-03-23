@@ -1,0 +1,8 @@
+-lib openfl
+-lib lime
+-lib actuate
+-lib compiletime
+-main DocMain
+-cp doc
+-cp src
+-neko doc-build/doc.n

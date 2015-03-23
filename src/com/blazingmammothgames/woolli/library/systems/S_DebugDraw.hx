@@ -7,10 +7,8 @@ import com.blazingmammothgames.woolli.library.components.C_AABB;
 import openfl.display.Sprite;
 import openfl.Vector;
 
-/**
- * ...
- * @author Kenton Hamaluik
- */
+@author("Kenton Hamaluik")
+@description("Draws semi-transparent rectangles over axis-aligned bounding boxes for debug display.")
 class S_DebugDraw extends System
 {
 	private var container:Sprite;
