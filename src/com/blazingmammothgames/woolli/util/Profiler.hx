@@ -1,4 +1,4 @@
-package 	com.blazingmammothgames.woolli.util;
+package com.blazingmammothgames.woolli.util;
 import haxe.ds.StringMap;
 import haxe.Timer;
 import openfl.display.Sprite;
@@ -12,6 +12,11 @@ private class Profile
 {
 	public var elapsedTime:Float = 0;
 	public var startTime:Float = 0;
+	
+	public function new()
+	{
+		
+	}
 }
  
 class Profiler

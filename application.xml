@@ -15,7 +15,7 @@
 	<source path="src" />
 	<haxelib name="openfl" />
 	<haxelib name="actuate" />
-	<haxelib name="munit" />
+	<haxelib name="buddy" />
 	
 	<!-- assets -->
 	<icon path="assets/blazingmammothgames_16px.png" size="16" />

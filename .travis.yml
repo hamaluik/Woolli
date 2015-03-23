@@ -16,13 +16,15 @@ before_script:
   - haxelib setup ~/haxelib > /dev/null
 #  - haxelib install hxcpp                              # install hxcpp to test C++ target
   - haxelib install nme > /dev/null
-  - haxelib install munit > /dev/null
+#  - haxelib install munit > /dev/null
   - haxelib install lime > /dev/null
   - haxelib install openfl > /dev/null
   - haxelib install actuate > /dev/null
-  - haxelib install hamcrest > /dev/null
-  - mkdir build > /dev/null                                          # create an output folder if needed
+#  - haxelib install hamcrest > /dev/null
+  - haxelib install buddy > /dev/null
+  - mkdir behaviour-build > /dev/null                                          # create an output folder if needed
 
 # Run the test!
 script:
-  - haxelib run munit test -result-exit-code -coverage -neko
+  - haxe behaviour.hxml
+  - neko behaviour-build/behaviour.n

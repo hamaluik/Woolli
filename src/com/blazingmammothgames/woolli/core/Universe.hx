@@ -43,6 +43,11 @@ class Universe
 		// actually, allow multiple systems of the same type
 		systems.push(system);
 		systemEntities.set(system, new Array<Entity>());
+
+		for(entity in entities)
+		{
+			onEntitySystemChange(entity, system);
+		}
 	}
 	
 	public function removeSystem(system:System):Void
@@ -106,32 +111,37 @@ class Universe
 		}
 		return ret;
 	}
+
+	public function onEntitySystemChange(entity:Entity, system:System):Void
+	{
+		var entityExisted:Bool = false;
+		for (ent in systemEntities.get(system))
+		{
+			if (ent == entity)
+			{
+				entityExisted = true;
+			}
+		}
+		
+		// if it didn't exist and it does match, add it
+		if (!entityExisted && entity.enabled && system.demands.matchesEntity(entity))
+		{
+			systemEntities.get(system).push(entity);
+			system.onEntityAdded(entity);
+		}
+		// if it does exist and it no longer matches, remove it
+		else if (entityExisted && (!entity.enabled || !system.demands.matchesEntity(entity) ))
+		{
+			systemEntities.get(system).remove(entity);
+			system.onEntityRemoved(entity);
+		}
+	}
 	
 	public function onEntityChange(entity:Entity):Void
 	{
 		for (system in systems)
 		{
-			var entityExisted:Bool = false;
-			for (ent in systemEntities.get(system))
-			{
-				if (ent == entity)
-				{
-					entityExisted = true;
-				}
-			}
-			
-			// if it didn't exist and it does match, add it
-			if (!entityExisted && entity.enabled && system.demands.matchesEntity(entity))
-			{
-				systemEntities.get(system).push(entity);
-				system.onEntityAdded(entity);
-			}
-			// if it does exist and it no longer matches, remove it
-			else if (entityExisted && (!entity.enabled || !system.demands.matchesEntity(entity) ))
-			{
-				systemEntities.get(system).remove(entity);
-				system.onEntityRemoved(entity);
-			}
+			onEntitySystemChange(entity, system);
 		}
 	}
 	

@@ -14,11 +14,11 @@ class EntityState
 		
 	}
 	
-	public function addComponent(componentType:Class<Component>, instantiator:Entity->Component):Void
+	public function addComponent(componentType:Class<Component>, instantiator:Entity->Component, ?retainInstance:Bool):Void
 	{
 		if (components.exists(Type.getClassName(componentType)))
 			throw new WoolliException("Can't add component type as it already exists!", true);
-		components.set(Type.getClassName(componentType), new ComponentProvider(componentType, instantiator));
+		components.set(Type.getClassName(componentType), new ComponentProvider(componentType, instantiator, retainInstance == null ? false : retainInstance));
 	}
 	
 	public function hasComponent(componentType:Class<Component>):Bool
@@ -29,6 +29,11 @@ class EntityState
 	public function hasInstantiator(componentType:Class<Component>):Bool
 	{
 		return (components.exists(Type.getClassName(componentType))) && (components.get(Type.getClassName(componentType)).instantiator != null);
+	}
+
+	public function retainComponentInstance(componentType:Class<Component>):Bool
+	{
+		return (components.exists(Type.getClassName(componentType))) && (components.get(Type.getClassName(componentType)).retainInstance);
 	}
 	
 	public function instantiateInstance(entity:Entity, componentType:Class<Component>):Component

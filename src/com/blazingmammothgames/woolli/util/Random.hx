@@ -1,4 +1,4 @@
-package 	com.blazingmammothgames.woolli.util;
+package com.blazingmammothgames.woolli.util;
 
 /**
  * ...
