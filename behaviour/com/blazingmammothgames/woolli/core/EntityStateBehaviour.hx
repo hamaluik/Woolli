@@ -20,7 +20,7 @@ class EntityStateBehaviour extends BuddySuite
 			after({ es = null; });
 
 			it("should allow you to add components based on their type", {
-				es.addComponent(MockComponentA, null);
+				es.addComponent.bind(MockComponentA, null).should.not.throwType(WoolliException);
 			});
 			it("shouldn't report having a component if it doesn't", {
 				es.hasComponent(MockComponentA).should.be(false);

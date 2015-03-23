@@ -31,14 +31,14 @@ class EntityBehaviour extends BuddySuite
 			});
 			it("should be able to be set active or inactive", {
 				e.enabled = false;
-				e.enabled = true;
+				e.enabled.should.be(false);
 			});
 			it("shouldn't have any components on it when it is first created", {
 				e.getComponentTypes().length.should.be(0);
 			});
 			it("should be able to have components be added to it", {
 				var c:MockComponentA = new MockComponentA();
-				e.addComponent(c);
+				e.addComponent.bind(c).should.not.throwType(WoolliException);
 			});
 			it("should throw an exception if a component is added to it when it already has a component of that type", {
 				var c1:MockComponentA = new MockComponentA();
