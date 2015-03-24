@@ -16,7 +16,7 @@ class Woolli extends Sprite
 	var initialized:Bool;
 	var splash:Splash;
 
-	public static var version:Version = CompileTime.readFile("src/com/blazingmammothgames/woolli/version.txt");
+	public static var version:Version = CompileTime.readFile("version.txt");
 
 	/* ENTRY POINT */
 	
