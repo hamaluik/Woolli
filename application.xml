@@ -5,7 +5,7 @@
 	<meta title="Woolli" package="com.blazingmammothgames.woolli" version="1.0.0" company="Blazing Mammoth Games" />
 	
 	<!-- output -->
-	<app main="com.blazingmammothgames.woolli.Main" file="Woolli" path="bin" />
+	<app main="com.blazingmammothgames.woolli.Woolli" file="Woolli" path="bin" />
 	
 	<window background="#000000" fps="60" />
 	<window width="960" height="540" unless="mobile" />
@@ -16,6 +16,8 @@
 	<haxelib name="openfl" />
 	<haxelib name="actuate" />
 	<haxelib name="buddy" />
+	<haxelib name="thx.semver" />
+	<haxelib name="compiletime" />
 	
 	<!-- assets -->
 	<icon path="assets/blazingmammothgames_16px.png" size="16" />
