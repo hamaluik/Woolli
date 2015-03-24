@@ -22,6 +22,8 @@ before_script:
   - haxelib install actuate > /dev/null
 #  - haxelib install hamcrest > /dev/null
   - haxelib install buddy > /dev/null
+  - haxelib install thx.semver > /dev/null
+  - haxelib install compiletime > /dev/null
   - mkdir behaviour-build > /dev/null                                          # create an output folder if needed
 
 # Run the test!

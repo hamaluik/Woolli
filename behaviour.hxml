@@ -2,6 +2,8 @@
 -lib openfl
 -lib lime
 -lib actuate
+-lib thx.semver
+-lib compiletime
 #--interp
 -main BehaviourMain
 -cp behaviour
