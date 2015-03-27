@@ -16,8 +16,6 @@
 	<haxelib name="openfl" />
 	<haxelib name="actuate" />
 	<haxelib name="buddy" />
-	<haxelib name="thx.semver" />
-	<haxelib name="compiletime" />
 	
 	<!-- assets -->
 	<icon path="assets/blazingmammothgames_16px.png" size="16" />

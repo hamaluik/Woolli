@@ -4,19 +4,16 @@ import com.blazingmammothgames.woolli.demos.platformer.G_Platformer;
 import openfl.display.Sprite;
 import openfl.events.Event;
 import openfl.Lib;
-import thx.semver.Version;
 
 /**
  * ...
  * @author Kenton Hamaluik
  */
-
+@:build(com.blazingmammothgames.woolli.VersionBuilder.build())
 class Woolli extends Sprite 
 {
 	var initialized:Bool;
 	var splash:Splash;
-
-	public static var version:Version = CompileTime.readFile("version.txt");
 
 	/* ENTRY POINT */
 	
@@ -59,6 +56,5 @@ class Woolli extends Sprite
 		Lib.current.stage.align = openfl.display.StageAlign.TOP_LEFT;
 		Lib.current.stage.scaleMode = openfl.display.StageScaleMode.NO_SCALE;
 		Lib.current.addChild(new Woolli());
-		trace(version);
 	}
 }
