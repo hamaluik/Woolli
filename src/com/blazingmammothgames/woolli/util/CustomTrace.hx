@@ -12,7 +12,7 @@ import openfl.text.TextFormat;
 class CustomTrace
 {
 	private static var overlayText:TextField;
-	public static function enableCustomTrace(?font:String):Void
+	public static function enableCustomTrace(?font:String, ?colour:UInt):Void
 	{
 		if (overlayText == null)
 		{
@@ -21,7 +21,7 @@ class CustomTrace
 			overlayText.height = Lib.current.stage.stageHeight;
 			overlayText.mouseEnabled = false;
 			overlayText.wordWrap = true;
-			overlayText.defaultTextFormat = new TextFormat(font, 12, 0xffffff);
+			overlayText.defaultTextFormat = new TextFormat(font, 12, if(colour == null) 0x000000 else colour);
 			overlayText.embedFonts = font != null;
 			Lib.current.stage.addChild(overlayText);
 			
