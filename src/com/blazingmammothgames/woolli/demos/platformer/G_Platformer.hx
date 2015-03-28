@@ -2,7 +2,9 @@ package com.blazingmammothgames.woolli.demos.platformer;
 import com.blazingmammothgames.woolli.core.Component;
 import com.blazingmammothgames.woolli.core.Entity;
 import com.blazingmammothgames.woolli.core.Universe;
+import com.blazingmammothgames.woolli.core.WoolliMacros;
 import com.blazingmammothgames.woolli.library.components.C_AABB;
+import com.blazingmammothgames.woolli.library.systems.S_Acceleration;
 import com.blazingmammothgames.woolli.library.systems.S_DebugDraw;
 import com.blazingmammothgames.woolli.util.Vector;
 import openfl.events.Event;
@@ -39,9 +41,13 @@ class G_Platformer implements IGame
 	{
 		// store the scene root
 		this.sceneRoot = sceneRoot;
+		sceneRoot.stage.color = 0xffffff;
 		
 		// enable custom trace
 		CustomTrace.enableCustomTrace();
+		var x = 1;
+		var b = WoolliMacros.add(x++);
+		trace(x);
 		
 		// create a playing universe
 		playingUniverse = new Universe();
@@ -52,6 +58,7 @@ class G_Platformer implements IGame
 		sceneRoot.addChild(buffer);
 		
 		// add all the systems
+		playingUniverse.addSystem(new S_Acceleration());
 		#if debugdraw playingUniverse.addSystem(new S_DebugDraw(buffer)); #end
 		
 		// now create the entities

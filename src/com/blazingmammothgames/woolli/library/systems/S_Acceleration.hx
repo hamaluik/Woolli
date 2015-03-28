@@ -5,6 +5,7 @@ import com.blazingmammothgames.woolli.core.System;
 import com.blazingmammothgames.woolli.core.Entity;
 import com.blazingmammothgames.woolli.library.components.C_Acceleration;
 import com.blazingmammothgames.woolli.library.components.C_Velocity;
+import haxe.macro.Expr;
 
 /**
  * ...
