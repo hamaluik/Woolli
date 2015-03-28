@@ -1,8 +1,11 @@
 package com.blazingmammothgames.woolli.demos.platformer;
 import com.blazingmammothgames.woolli.core.Component;
 import com.blazingmammothgames.woolli.core.Entity;
+import com.blazingmammothgames.woolli.core.GameStateMachine;
 import com.blazingmammothgames.woolli.core.Universe;
+import com.blazingmammothgames.woolli.demos.platformer.factories.F_TileMap;
 import com.blazingmammothgames.woolli.library.components.C_AABB;
+import com.blazingmammothgames.woolli.library.components.C_Camera;
 import com.blazingmammothgames.woolli.library.systems.S_Acceleration;
 import com.blazingmammothgames.woolli.library.systems.S_Animator;
 import com.blazingmammothgames.woolli.library.systems.S_Camera;
@@ -33,9 +36,10 @@ import haxe.Timer;
 class G_Platformer implements IGame
 {
 	var lastTime:Float = 0;
-	var playingUniverse:Universe;
 	var sceneRoot:Sprite = null;
 	var buffer:Sprite = null;
+	
+	var gsm:GameStateMachine = new GameStateMachine();
 
 	public function new() 
 	{
@@ -48,10 +52,7 @@ class G_Platformer implements IGame
 		this.sceneRoot = sceneRoot;
 		
 		// enable custom trace
-		CustomTrace.enableCustomTrace();
-		
-		// create a playing universe
-		playingUniverse = new Universe();
+		CustomTrace.enableCustomTrace(null, 0xffffff);
 		
 		// create a buffer for everything to render into
 		// (necessary for overlaid pixel effects)
@@ -59,31 +60,36 @@ class G_Platformer implements IGame
 		sceneRoot.addChild(buffer);
 		
 		// add all the systems
-		playingUniverse.addSystem(new S_Acceleration());
-		playingUniverse.addSystem(new S_CollisionHandler());
-		playingUniverse.addSystem(new S_Velocity());
-		playingUniverse.addSystem(new S_Animator());
-		playingUniverse.addSystem(new S_Camera(buffer));
-		playingUniverse.addSystem(new S_TileMap(buffer, LayerSet.BG));
-		playingUniverse.addSystem(new S_SpriteLayer(buffer));
-		playingUniverse.addSystem(new S_TileMap(buffer, LayerSet.FG));
-		#if debugdraw playingUniverse.addSystem(new S_DebugDraw(buffer)); #end
-		
-		// now create the entities
-		var player:Entity = new Entity();
-		player.stateMachine
-			.createState("Idle")
-				.ensureComponent(C_AABB, function(e:Entity):Component {
-					return new C_AABB(new Vector(0, 0), new Vector(8, 10));
-				});
-		player.stateMachine.changeState("Idle");
-		playingUniverse.addEntity(player);
+		gsm.addUniverse("test", function():Universe {
+			var universe:Universe = new Universe();
+			
+			// add the systems
+			universe.addSystem(new S_Acceleration());
+			universe.addSystem(new S_CollisionHandler());
+			universe.addSystem(new S_Velocity());
+			universe.addSystem(new S_Animator());
+			universe.addSystem(new S_Camera());
+			universe.addSystem(new S_TileMap(buffer, LayerSet.BG));
+			universe.addSystem(new S_SpriteLayer(buffer));
+			universe.addSystem(new S_TileMap(buffer, LayerSet.FG));
+			//#if debugdraw universe.addSystem(new S_DebugDraw(buffer)); #end
+			
+			// load the tilemap
+			F_TileMap.loadFromTMX(universe, "assets/demos/platformer/levels/level0.tmx");
+			
+			// create a camera
+			var camera:Entity = new Entity();
+			camera.addComponent(new C_Camera(buffer, 4, new Vector(104, 40), 0x000000));
+			universe.addEntity(camera);
+			
+			return universe;
+		});
 		
 		// an FPS counter in debug mode
-		#if debugdraw sceneRoot.addChild(new FPS(Lib.current.stage.stageWidth - 50, 5, 0x000000)); #end
+		#if debugdraw sceneRoot.addChild(new FPS(Lib.current.stage.stageWidth - 50, 5, 0xffffff)); #end
 		
 		// start
-		Universe.current = playingUniverse;
+		gsm.switchUniverse("test");
 		lastTime = Timer.stamp();
 	}
 	

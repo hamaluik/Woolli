@@ -33,14 +33,6 @@ class Universe
 	
 	public function addSystem(system:System):Void
 	{
-		/*if (!systemExists(Type.getClass(system)))
-		{
-			systems.push(system);
-			systemEntities.set(system, new Array<Entity>());
-		}
-		else
-			throw new ESException("System already existed!", true);*/
-		// actually, allow multiple systems of the same type
 		systems.push(system);
 		systemEntities.set(system, new Array<Entity>());
 
@@ -162,19 +154,11 @@ class Universe
 		}
 	}
 	
-	public function suspend():Void
+	public function destroy():Void
 	{
 		for (system in systems)
 		{
-			system.onSuspend();
-		}
-	}
-	
-	public function resume():Void
-	{
-		for (system in systems)
-		{
-			system.onResume();
+			system.onDestroy();
 		}
 	}
 }

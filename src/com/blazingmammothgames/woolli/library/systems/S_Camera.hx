@@ -16,20 +16,21 @@ import openfl.Lib;
  */
 class S_Camera extends System
 {
-	var root:Sprite = null;
+	//var root:Sprite = null;
 
-	public function new(sceneRoot:Sprite) 
+	public function new() 
 	{
 		super(new Demands().requires(C_Camera));
-		this.root = sceneRoot;
-		
-		// set the scale
-		root.scaleX = 1;
-		root.scaleY = 1;
-		
-		// translate it into place
-		root.x = 0;
-		root.y = 0;
+	}
+	
+	public static function screenToWorld(camera:C_Camera, point:Vector):Vector
+	{
+		return (point - new Vector(Lib.current.stage.stageWidth / 2, Lib.current.stage.stageHeight / 2) - camera.centre) / camera.zoom;
+	}
+	
+	public static function worldToScreen(camera:C_Camera, point:Vector):Vector
+	{
+		return (point * camera.zoom) + new Vector(Lib.current.stage.stageWidth / 2, Lib.current.stage.stageHeight / 2) + camera.centre;
 	}
 	
 	override public function processEntities(dt:Float, entities:Array<Entity>):Void
@@ -39,20 +40,22 @@ class S_Camera extends System
 			var camera:C_Camera = cast(entity.getComponentByType(C_Camera), C_Camera);
 			if (camera.enabled)
 			{
-				root.stage.color = camera.clearColour;
-				root.scaleX = camera.zoom;
-				root.scaleY = camera.zoom;
+				camera.buffer.stage.color = camera.clearColour;
+				camera.buffer.scaleX = camera.zoom;
+				camera.buffer.scaleY = camera.zoom;
 				
+				var centre:Vector = Vector.roundToOne(camera.centre) * -1 * camera.zoom;
 				if (camera.followTarget != null)
 				{
 					camera.centre = Vector.roundToOne(camera.followTarget.center) * -1 * camera.zoom;
 				}
 				
-				root.x = camera.centre.x + (root.stage.stageWidth / 2);
-				root.y = camera.centre.y + (root.stage.stageHeight / 2);
-			
-				// only do one camera at a time
-				return;
+				camera.buffer.x = centre.x + (camera.buffer.stage.stageWidth / 2);
+				camera.buffer.y = centre.y + (camera.buffer.stage.stageHeight / 2);
+			}
+			else
+			{
+				trace("not enabled");
 			}
 		}
 	}

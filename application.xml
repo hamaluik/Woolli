@@ -26,7 +26,7 @@
 	<haxeflag name="-dce full" /> -->
 	
 	<!-- disable the splash screen -->
-	<!-- <haxedef name="disableSplash" /> -->
+	<haxedef name="disableSplash" />
 	
 	<!-- enable profiling -->
 	<!--haxedef name="profiling" /-->

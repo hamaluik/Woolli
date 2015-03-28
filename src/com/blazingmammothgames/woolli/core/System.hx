@@ -32,12 +32,7 @@ class System
 		
 	}
 	
-	public function onSuspend():Void
-	{
-		
-	}
-	
-	public function onResume():Void
+	public function onDestroy():Void
 	{
 		
 	}
