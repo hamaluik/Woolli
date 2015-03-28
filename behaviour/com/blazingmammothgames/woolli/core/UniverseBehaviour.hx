@@ -100,19 +100,6 @@ class UniverseBehaviour extends BuddySuite
 				e.enabled = false;
 				sysA.entityRemoved.should.be(true);
 			});
-			it("should be able to suspend itself (and all subsequent systems)", {
-				var sysA:MockSystemA = new MockSystemA();
-				universe.addSystem(sysA);
-				universe.suspend();
-				sysA.systemSuspended.should.be(true);
-			});
-			it("should be able to resume itself (and all subsequent systems)", {
-				var sysA:MockSystemA = new MockSystemA();
-				universe.addSystem(sysA);
-				universe.suspend();
-				universe.resume();
-				sysA.systemResumed.should.be(true);
-			});
 		});
 	}
 }

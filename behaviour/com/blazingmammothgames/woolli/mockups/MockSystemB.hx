@@ -12,8 +12,7 @@ class MockSystemB extends System
 	public var entityAdded:Bool = false;
 	public var entityRemoved:Bool = false;
 	public var entitiesProcessed:Bool = false;
-	public var systemSuspended:Bool = false;
-	public var systemResumed:Bool = false;
+	public var systemDestroyed:Bool = false;
 	
 	public function new() 
 	{
@@ -35,13 +34,8 @@ class MockSystemB extends System
 		entitiesProcessed = true;
 	}
 	
-	override public function onSuspend():Void
+	override public function onDestroy():Void
 	{
-		systemSuspended = true;
-	}
-	
-	override public function onResume():Void
-	{
-		systemResumed = true;
+		systemDestroyed = true;
 	}
 }
