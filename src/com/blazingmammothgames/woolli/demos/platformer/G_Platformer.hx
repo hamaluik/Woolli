@@ -3,7 +3,14 @@ import com.blazingmammothgames.woolli.core.Component;
 import com.blazingmammothgames.woolli.core.Entity;
 import com.blazingmammothgames.woolli.core.Universe;
 import com.blazingmammothgames.woolli.library.components.C_AABB;
+import com.blazingmammothgames.woolli.library.systems.S_Acceleration;
+import com.blazingmammothgames.woolli.library.systems.S_Animator;
+import com.blazingmammothgames.woolli.library.systems.S_Camera;
+import com.blazingmammothgames.woolli.library.systems.S_CollisionHandler;
 import com.blazingmammothgames.woolli.library.systems.S_DebugDraw;
+import com.blazingmammothgames.woolli.library.systems.S_SpriteLayer;
+import com.blazingmammothgames.woolli.library.systems.S_TileMap;
+import com.blazingmammothgames.woolli.library.systems.S_Velocity;
 import com.blazingmammothgames.woolli.util.Vector;
 import openfl.events.Event;
 
@@ -52,6 +59,14 @@ class G_Platformer implements IGame
 		sceneRoot.addChild(buffer);
 		
 		// add all the systems
+		playingUniverse.addSystem(new S_Acceleration());
+		playingUniverse.addSystem(new S_CollisionHandler());
+		playingUniverse.addSystem(new S_Velocity());
+		playingUniverse.addSystem(new S_Animator());
+		playingUniverse.addSystem(new S_Camera(buffer));
+		playingUniverse.addSystem(new S_TileMap(buffer, LayerSet.BG));
+		playingUniverse.addSystem(new S_SpriteLayer(buffer));
+		playingUniverse.addSystem(new S_TileMap(buffer, LayerSet.FG));
 		#if debugdraw playingUniverse.addSystem(new S_DebugDraw(buffer)); #end
 		
 		// now create the entities
