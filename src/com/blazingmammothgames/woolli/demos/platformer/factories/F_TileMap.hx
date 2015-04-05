@@ -12,6 +12,8 @@ import haxe.xml.Fast;
 import openfl.Assets;
 import openfl.geom.Rectangle;
 
+using StringTools;
+
 /**
  * ...
  * @author Kenton Hamaluik
@@ -60,6 +62,7 @@ class F_TileMap
 			var dataLines:Array<String> = data.split("\n");
 			for (line in dataLines)
 			{
+				line = line.trim();
 				if (line == "")
 					continue;
 				var tileIndices:Array<String> = line.split(",");
@@ -100,14 +103,11 @@ class F_TileMap
 					if (!object.elements.hasNext())
 					{
 						// it's an AABB
-						var platform:Entity = new Entity();
-						var x:Float = Std.parseFloat(object.att.x);
-						var y:Float = Std.parseInt(object.att.y);
-						var w:Float = Std.parseFloat(object.att.width);
-						var h:Float = Std.parseInt(object.att.height);
-						platform.addComponent(new C_AABB(new Vector(x + (w / 2), y + (h / 2)), new Vector(w / 2, h / 2)));
-						platform.addComponent(new C_Collider((1 << 1), (1 << 0)));
-						universe.addEntity(platform);
+						universe.addEntity(F_Platform.createPlatform(
+							Std.parseFloat(object.att.x),
+							Std.parseInt(object.att.y),
+							Std.parseFloat(object.att.width),
+							Std.parseInt(object.att.height)));
 					}
 					/*else if (object.elements.next().name == "polyline")
 						trace("Found polyline!");
@@ -123,7 +123,25 @@ class F_TileMap
 			}
 			else if (objectGroup.att.name == "entities")
 			{
-				// TODO
+				// get the entities
+				for (object in objectGroup.nodes.object)
+				{
+					switch(object.att.type)
+					{
+						case "player":
+						{
+							// get the location first
+							var x = Std.parseFloat(object.att.x);
+							var y = Std.parseFloat(object.att.y);
+							var width = Std.parseFloat(object.att.width);
+							var height = Std.parseFloat(object.att.height);
+							
+							// now create the entity
+							var player:Entity = F_Player.createPlayer(new Vector(x + (width / 2), y + (height / 2)));
+							universe.addEntity(player);
+						}
+					}
+				}
 			}
 			// ignore anything else
 		}

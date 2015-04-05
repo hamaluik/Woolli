@@ -4,6 +4,7 @@ import com.blazingmammothgames.woolli.core.Demands;
 import com.blazingmammothgames.woolli.core.System;
 import com.blazingmammothgames.woolli.core.Entity;
 import com.blazingmammothgames.woolli.library.components.C_AABB;
+import com.blazingmammothgames.woolli.library.components.C_DebugDraw;
 import openfl.display.Sprite;
 import openfl.Vector;
 
@@ -14,20 +15,20 @@ import openfl.Vector;
 class S_DebugDraw extends System
 {
 	private var container:Sprite;
-	private var colours:Array<Int> = new Array<Int>();
+	//private var colours:Array<Int> = new Array<Int>();
 
 	public function new(root:Sprite) 
 	{
-		super(new Demands().requires(C_AABB));
+		super(new Demands().requires(C_DebugDraw).requires(C_AABB));
 		container = new Sprite();
 		root.addChild(container);
 		
-		colours.push(0xff0000);
+		/*colours.push(0xff0000);
 		colours.push(0x00ff00);
 		colours.push(0x0000ff);
 		colours.push(0xffff00);
 		colours.push(0xff00ff);
-		colours.push(0x00ffff);
+		colours.push(0x00ffff);*/
 	}
 	
 	override public function processEntities(dt:Float, entities:Array<Entity>):Void
@@ -36,9 +37,10 @@ class S_DebugDraw extends System
 		var ci:Int = 0;
 		for (entity in entities)
 		{
+			var dbd:C_DebugDraw = cast(entity.getComponentByType(C_DebugDraw), C_DebugDraw);
 			var bounds:C_AABB = cast(entity.getComponentByType(C_AABB), C_AABB);
 			
-			container.graphics.beginFill(colours[ci], 0.5);
+			container.graphics.beginFill(/*colours[ci]*/dbd.colour, 0.5);
 			container.graphics.drawRect(bounds.min.x, bounds.min.y, bounds.size.x, bounds.size.y);
 			container.graphics.endFill();
 			/*container.graphics.lineStyle(0.01, colours[ci]);
@@ -47,9 +49,9 @@ class S_DebugDraw extends System
 			container.graphics.lineTo(bounds.max.x, bounds.max.y);
 			container.graphics.lineTo(bounds.min.x, bounds.max.y);
 			container.graphics.lineTo(bounds.min.x, bounds.min.y);*/
-			ci++;
+			/*ci++;
 			if (ci >= colours.length)
-				ci = 0;
+				ci = 0;*/
 		}
 		
 		// draw the camera root

@@ -5,18 +5,18 @@
  </tileset>
  <layer name="bg0" width="13" height="5">
   <data encoding="csv">
-19,19,19,19,19,19,11,12,19,19,19,19,19,
-19,19,11,12,11,12,19,19,19,11,19,30,30,
-11,19,19,19,19,19,19,19,19,19,19,19,39,
+19,19,19,19,19,19,19,19,19,19,19,19,19,
+19,19,19,19,19,19,19,19,19,19,19,39,39,
+19,19,19,19,19,19,19,19,19,19,19,19,39,
 19,19,19,19,19,19,19,19,19,19,19,19,19,
 19,19,19,19,19,19,19,19,19,19,19,19,19
 </data>
  </layer>
  <layer name="bg1" width="13" height="5">
   <data encoding="csv">
-1,2,3,4,0,0,0,0,0,0,0,7,8,
-0,0,0,0,0,0,21,22,14,0,0,0,0,
-0,0,0,0,0,0,0,0,0,0,25,28,0,
+1,2,3,4,0,0,12,0,11,12,0,7,8,
+0,12,0,0,12,0,21,22,14,0,11,31,31,
+11,0,0,0,0,0,0,0,0,0,25,28,0,
 26,27,27,26,27,28,0,0,0,25,34,35,26,
 34,35,35,34,35,36,0,0,0,33,35,35,35
 </data>
@@ -30,7 +30,7 @@
 0,0,0,0,0,0,13,13,13,0,0,0,0
 </data>
  </layer>
- <objectgroup color="#ffffff" name="collisions">
+ <objectgroup color="#ffffff" name="collisions" visible="0">
   <object x="0" y="48" width="96" height="32"/>
   <object x="160" y="32" width="32" height="16"/>
   <object x="144" y="48" width="64" height="32"/>
@@ -38,14 +38,14 @@
   <object x="0" y="0" width="64" height="16"/>
   <object x="176" y="0" width="32" height="16"/>
  </objectgroup>
- <objectgroup color="#a42727" name="zones">
+ <objectgroup color="#a42727" name="zones" visible="0">
   <object type="lava" x="96" y="55" width="48" height="25"/>
   <object type="next_level" x="208" y="48" width="16" height="16"/>
   <object type="next_level" x="208" y="0" width="16" height="16"/>
   <object type="next_level" x="224" y="0" width="16" height="64"/>
   <object x="112" y="128"/>
  </objectgroup>
- <objectgroup color="#aaff00" name="entities">
+ <objectgroup color="#aaff00" name="entities" visible="0">
   <object name="Player 1" type="player" x="0" y="32" width="16" height="16"/>
   <object type="slime" x="112" y="0" width="16" height="16"/>
   <object type="heart" x="176" y="16" width="16" height="16"/>

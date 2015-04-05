@@ -27,6 +27,9 @@ class S_Animator extends System
 			var animated:C_Animated = cast(entity.getComponentByType(C_Animated), C_Animated);
 			var sprite:C_Sprite = cast(entity.getComponentByType(C_Sprite), C_Sprite);
 			
+			if (animated.state == AnimationState.PAUSED)
+				continue;
+			
 			if (animated.animations.exists(animated.currentAnimation))
 			{
 				var t:Float = Timer.stamp();

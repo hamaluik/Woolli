@@ -5,6 +5,7 @@ import com.blazingmammothgames.woolli.core.System;
 import com.blazingmammothgames.woolli.core.Entity;
 import com.blazingmammothgames.woolli.library.components.C_AABB;
 import com.blazingmammothgames.woolli.library.components.C_Collider;
+import com.blazingmammothgames.woolli.library.components.C_DebugDraw;
 import com.blazingmammothgames.woolli.library.components.C_Velocity;
 import com.blazingmammothgames.woolli.util.Vector;
 
@@ -112,6 +113,11 @@ class S_CollisionHandler extends System
 	
 	override public function processEntities(dt:Float, entities:Array<Entity>):Void
 	{
+		/*for (entity in entities)
+		{
+			if (entity.hasComponentType(C_Velocity))
+				cast(entity.getComponentByType(C_Velocity), C_Velocity).doMoveThisFrame = true;
+		}*/
 		var processEntities:Array<Entity> = new Array<Entity>();
 		for (entity in entities)
 		{
@@ -139,6 +145,9 @@ class S_CollisionHandler extends System
 				// skip any collisions we've already processed
 				if (processEntities.indexOf(entity) >= 0)
 					continue;
+				
+				// keep track of which entities were processed this round
+				processEntities.push(entity);
 					
 				// make sure the layers collide
 				var otherCollider:C_Collider = cast(otherEntity.getComponentByType(C_Collider), C_Collider);
@@ -147,6 +156,12 @@ class S_CollisionHandler extends System
 				
 				// get the bounds of the other box
 				var otherBounds:C_AABB = cast(otherEntity.getComponentByType(C_AABB), C_AABB);
+				
+				// reset their colours
+				if (entity.hasComponentType(C_DebugDraw))
+					cast(entity.getComponentByType(C_DebugDraw), C_DebugDraw).colour = 0x0000ff;
+				if (otherEntity.hasComponentType(C_DebugDraw))
+					cast(otherEntity.getComponentByType(C_DebugDraw), C_DebugDraw).colour = 0x0000ff;
 					
 				// calculate the Minkowski difference for these two
 				var md:C_AABB = minkowskiDifference(bounds, otherBounds);
@@ -157,41 +172,54 @@ class S_CollisionHandler extends System
 				{
 					// yup, these two are colliding!
 					
+					// set their colours
+					if (entity.hasComponentType(C_DebugDraw))
+						cast(entity.getComponentByType(C_DebugDraw), C_DebugDraw).colour = 0xff0000;
+					if (otherEntity.hasComponentType(C_DebugDraw))
+						cast(otherEntity.getComponentByType(C_DebugDraw), C_DebugDraw).colour = 0xff0000;
+					
 					// get the penetration vector
 					var penetrationVector:Vector = closestPointOnBoundsToPoint(md.min, md.max, Vector.zero);
 					
-					// depending on the velocity capabilities of each, decide what to do
-					if (vel != null && otherVel == null)
+					// if the penetration vector is 0, don't bother with anything
+					if (!penetrationVector.isZero())
 					{
-						// zero out the normal velocity
-						// (hit & stick)
-						var tangent:Vector = penetrationVector.normalized.tangent;
-						vel.velocity = Vector.dotProduct(vel.velocity, tangent) * tangent;
+						/*if (vel != null) vel.doMoveThisFrame = false;
+						if (otherVel != null) otherVel.doMoveThisFrame = false;*/
 						
-						// move the object out
-						bounds.center -= penetrationVector;
-					}
-					else if (vel == null && otherVel != null)
-					{
-						// zero out the normal velocity
-						// (hit & stick)
-						var tangent:Vector = penetrationVector.normalized.tangent;
-						otherVel.velocity = Vector.dotProduct(otherVel.velocity, tangent) * tangent;
-						
-						// move the other object out
-						otherBounds.center += penetrationVector;
-					}
-					else
-					{
-						// zero out the normal velocity
-						// (hit & stick)
-						var tangent:Vector = penetrationVector.normalized.tangent;
-						vel.velocity = Vector.dotProduct(vel.velocity, tangent) * tangent;
-						otherVel.velocity = Vector.dotProduct(otherVel.velocity, tangent) * tangent;
-						
-						// move both objects
-						bounds.center -= penetrationVector / 2;
-						otherBounds.center += penetrationVector / 2;
+						// depending on the velocity capabilities of each, decide what to do
+						if (vel != null && otherVel == null)
+						{
+							// zero out the normal velocity
+							// (hit & stick)
+							var tangent:Vector = penetrationVector.normalized.tangent;
+							vel.velocity = Vector.dotProduct(vel.velocity, tangent) * tangent;
+							
+							// move the object out
+							bounds.center -= penetrationVector;
+						}
+						else if (vel == null && otherVel != null)
+						{
+							// zero out the normal velocity
+							// (hit & stick)
+							var tangent:Vector = penetrationVector.normalized.tangent;
+							otherVel.velocity = Vector.dotProduct(otherVel.velocity, tangent) * tangent;
+							
+							// move the other object out
+							otherBounds.center += penetrationVector;
+						}
+						else
+						{
+							// zero out the normal velocity
+							// (hit & stick)
+							var tangent:Vector = penetrationVector.normalized.tangent;
+							vel.velocity = Vector.dotProduct(vel.velocity, tangent) * tangent;
+							otherVel.velocity = Vector.dotProduct(otherVel.velocity, tangent) * tangent;
+							
+							// move both objects
+							bounds.center -= penetrationVector / 2;
+							otherBounds.center += penetrationVector / 2;
+						}
 					}
 				}
 				else
@@ -211,13 +239,19 @@ class S_CollisionHandler extends System
 					// getRayIntersectionFraction returns Math.POSITIVE_INFINITY if there is no intersection
 					if(h < Math.POSITIVE_INFINITY)
 					{
+						// set their colours
+						if (entity.hasComponentType(C_DebugDraw))
+							cast(entity.getComponentByType(C_DebugDraw), C_DebugDraw).colour = 0x00ff00;
+						if (otherEntity.hasComponentType(C_DebugDraw))
+							cast(otherEntity.getComponentByType(C_DebugDraw), C_DebugDraw).colour = 0x00ff00;
+						
 						// yup, there WILL be a collision this frame
 						// move the boxes appropriately
 						bounds.center += va * dt * h;
 						otherBounds.center += vb * dt * h;
 						
-						if (vel != null) vel.doMoveThisFrame = false;
-						if (otherVel != null) otherVel.doMoveThisFrame = false;
+						/*if (vel != null) vel.doMoveThisFrame = false;
+						if (otherVel != null) otherVel.doMoveThisFrame = false;*/
 
 						// zero the normal component of the velocity
 						// (project the velocity onto the tangent of the relative velocities
@@ -227,10 +261,19 @@ class S_CollisionHandler extends System
 						if(otherVel != null) otherVel.velocity = Vector.dotProduct(otherVel.velocity, tangent) * tangent;
 					}
 				}
-				
-				// keep track of which entities were processed this round
-				processEntities.push(entity);
 			}
 		}
+		
+		/*for (entity in entities)
+		{
+			if (entity.hasComponentType(C_Velocity))
+			{
+				var v:C_Velocity = cast(entity.getComponentByType(C_Velocity), C_Velocity);
+				if (v.doMoveThisFrame)
+				{
+					cast(entity.getComponentByType(C_AABB), C_AABB).center += v.velocity * dt;
+				}
+			}
+		}*/
 	}
 }

@@ -10,7 +10,7 @@ import com.blazingmammothgames.woolli.util.Vector;
 class C_Velocity extends Component
 {
 	public var velocity:Vector = Vector.zero;
-	public var doMoveThisFrame = true;
+	//public var doMoveThisFrame = true;
 
 	public function new(vx:Float, vy:Float) 
 	{

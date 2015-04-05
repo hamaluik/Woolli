@@ -4,6 +4,9 @@ import com.blazingmammothgames.woolli.core.Entity;
 import com.blazingmammothgames.woolli.core.GameStateMachine;
 import com.blazingmammothgames.woolli.core.Universe;
 import com.blazingmammothgames.woolli.demos.platformer.factories.F_TileMap;
+import com.blazingmammothgames.woolli.demos.platformer.systems.S_PlatformerController;
+import com.blazingmammothgames.woolli.demos.platformer.systems.S_PlatformerKeyboardController;
+import com.blazingmammothgames.woolli.demos.platformer.systems.S_PlayerAnimator;
 import com.blazingmammothgames.woolli.library.components.C_AABB;
 import com.blazingmammothgames.woolli.library.components.C_Camera;
 import com.blazingmammothgames.woolli.library.systems.S_Acceleration;
@@ -64,15 +67,18 @@ class G_Platformer implements IGame
 			var universe:Universe = new Universe();
 			
 			// add the systems
+			universe.addSystem(new S_PlatformerKeyboardController());
+			universe.addSystem(new S_PlatformerController());
 			universe.addSystem(new S_Acceleration());
-			universe.addSystem(new S_CollisionHandler());
 			universe.addSystem(new S_Velocity());
+			universe.addSystem(new S_CollisionHandler());
 			universe.addSystem(new S_Animator());
+			universe.addSystem(new S_PlayerAnimator());
 			universe.addSystem(new S_Camera());
 			universe.addSystem(new S_TileMap(buffer, LayerSet.BG));
 			universe.addSystem(new S_SpriteLayer(buffer));
 			universe.addSystem(new S_TileMap(buffer, LayerSet.FG));
-			//#if debugdraw universe.addSystem(new S_DebugDraw(buffer)); #end
+			#if debugdraw universe.addSystem(new S_DebugDraw(buffer)); #end
 			
 			// load the tilemap
 			F_TileMap.loadFromTMX(universe, "assets/demos/platformer/levels/level0.tmx");

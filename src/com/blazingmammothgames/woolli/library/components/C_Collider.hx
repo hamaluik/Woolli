@@ -2,6 +2,7 @@ package com.blazingmammothgames.woolli.library.components;
 
 import com.blazingmammothgames.woolli.core.Component;
 import com.blazingmammothgames.woolli.core.Entity;
+import com.blazingmammothgames.woolli.util.Vector;
 
 /**
  * ...

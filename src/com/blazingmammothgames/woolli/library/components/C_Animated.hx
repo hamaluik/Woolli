@@ -45,7 +45,7 @@ class C_Animated extends Component
 	public function new() 
 	{
 		super();
-		state = AnimationState.PLAYING;
+		state = AnimationState.PAUSED;
 		currentFrame = 0;
 		frameDirection = 1;
 		lastFrameTime = 0;

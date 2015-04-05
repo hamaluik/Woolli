@@ -11,6 +11,7 @@ class C_Sprite extends Component
 {
 	public var tileNumber:Int = 0;
 	public var root:Vector = Vector.zero;
+	public var flipped:Bool = false;
 
 	public function new(tileNumber:Int, root:Vector)
 	{
