@@ -6,7 +6,9 @@ import com.blazingmammothgames.woolli.core.Entity;
 import com.blazingmammothgames.woolli.library.components.C_AABB;
 import com.blazingmammothgames.woolli.library.components.C_Collider;
 import com.blazingmammothgames.woolli.library.components.C_DebugDraw;
+import com.blazingmammothgames.woolli.library.components.C_GroundDetector;
 import com.blazingmammothgames.woolli.library.components.C_Velocity;
+import com.blazingmammothgames.woolli.util.EntityPair;
 import com.blazingmammothgames.woolli.util.Vector;
 
 /**
@@ -113,12 +115,16 @@ class S_CollisionHandler extends System
 	
 	override public function processEntities(dt:Float, entities:Array<Entity>):Void
 	{
-		/*for (entity in entities)
+		for (entity in entities)
 		{
-			if (entity.hasComponentType(C_Velocity))
-				cast(entity.getComponentByType(C_Velocity), C_Velocity).doMoveThisFrame = true;
-		}*/
-		var processEntities:Array<Entity> = new Array<Entity>();
+			/*if (entity.hasComponentType(C_Velocity))
+				cast(entity.getComponentByType(C_Velocity), C_Velocity).doMoveThisFrame = true;*/
+			if (entity.hasComponentType(C_GroundDetector))
+				cast(entity.getComponentByType(C_GroundDetector), C_GroundDetector).onGround = false;
+		}
+		//var processEntities:Array<Entity> = new Array<Entity>();
+		var processedPairs:Array<EntityPair> = new Array<EntityPair>();
+		
 		for (entity in entities)
 		{
 			// get the required components
@@ -127,6 +133,9 @@ class S_CollisionHandler extends System
 			var vel:C_Velocity = null;
 			if (entity.hasComponentType(C_Velocity))
 				vel = cast(entity.getComponentByType(C_Velocity), C_Velocity);
+			var groundDetector:C_GroundDetector = null;
+			if (entity.hasComponentType(C_GroundDetector))
+				groundDetector = cast(entity.getComponentByType(C_GroundDetector), C_GroundDetector);
 				
 			// loop over all other entities
 			for (otherEntity in entities)
@@ -135,19 +144,38 @@ class S_CollisionHandler extends System
 				if (otherEntity == entity)
 					continue;
 					
+				// if we've already processed this pair, ignore it
+				var alreadyProcessed:Bool = false;
+				for (pair in processedPairs)
+				{
+					if (pair == new EntityPair(entity, otherEntity))
+					{
+						alreadyProcessed = true;
+						break;
+					}
+				}
+				if (alreadyProcessed)
+				{
+					continue;
+				}
+				processedPairs.push(new EntityPair(entity, otherEntity));
+					
 				var otherVel:C_Velocity = null;
 				if (otherEntity.hasComponentType(C_Velocity))
 					otherVel = cast(otherEntity.getComponentByType(C_Velocity), C_Velocity);
 				// if both objects are static, ignore them
 				if (vel == null && otherVel == null)
 					continue;
+				var otherGroundDetector:C_GroundDetector = null;
+				if (otherEntity.hasComponentType(C_GroundDetector))
+					otherGroundDetector = cast(otherEntity.getComponentByType(C_GroundDetector), C_GroundDetector);
 					
-				// skip any collisions we've already processed
-				if (processEntities.indexOf(entity) >= 0)
+				/*// skip any collisions we've already processed
+				if (processEntities.indexOf(otherEntity) >= 0)
 					continue;
 				
 				// keep track of which entities were processed this round
-				processEntities.push(entity);
+				processEntities.push(entity);*/
 					
 				// make sure the layers collide
 				var otherCollider:C_Collider = cast(otherEntity.getComponentByType(C_Collider), C_Collider);
@@ -171,6 +199,12 @@ class S_CollisionHandler extends System
 					md.max.y >= 0)
 				{
 					// yup, these two are colliding!
+					
+					// deal with ground touching
+					if (groundDetector != null && bounds.center.y + bounds.extents.y <= otherBounds.center.y - otherBounds.extents.y)
+						groundDetector.onGround = true;
+					if (otherGroundDetector != null && otherBounds.center.y + otherBounds.extents.y <= bounds.center.y - bounds.extents.y)
+						otherGroundDetector.onGround = true;
 					
 					// set their colours
 					if (entity.hasComponentType(C_DebugDraw))

@@ -5,6 +5,7 @@ import com.blazingmammothgames.woolli.core.System;
 import com.blazingmammothgames.woolli.core.Entity;
 import com.blazingmammothgames.woolli.demos.platformer.components.C_PlatformerKeyboardControl;
 import com.blazingmammothgames.woolli.library.components.C_Animated;
+import com.blazingmammothgames.woolli.library.components.C_GroundDetector;
 import com.blazingmammothgames.woolli.library.components.C_Sprite;
 import com.blazingmammothgames.woolli.library.components.C_Velocity;
 
@@ -17,7 +18,7 @@ class S_PlayerAnimator extends System
 
 	public function new() 
 	{
-		super(new Demands().requires(C_Velocity).requires(C_Animated).requires(C_Sprite).requires(C_PlatformerKeyboardControl));
+		super(new Demands().requires(C_Velocity).requires(C_Animated).requires(C_Sprite).requires(C_PlatformerKeyboardControl).requires(C_GroundDetector));
 	}
 	
 	override public function processEntities(dt:Float, entities:Array<Entity>):Void
@@ -27,23 +28,30 @@ class S_PlayerAnimator extends System
 			var vel:C_Velocity = cast(entity.getComponentByType(C_Velocity), C_Velocity);
 			var anim:C_Animated = cast(entity.getComponentByType(C_Animated), C_Animated);
 			var sprite:C_Sprite = cast(entity.getComponentByType(C_Sprite), C_Sprite);
+			var groundDetector:C_GroundDetector = cast(entity.getComponentByType(C_GroundDetector), C_GroundDetector);
 			
 			var nextAnim:String = '';
-			if (vel.velocity.y > 0)
+			if (groundDetector.onGround)
 			{
-				nextAnim = 'fall';
-			}
-			else if (vel.velocity.y < 0)
-			{
-				nextAnim = 'jump';
-			}
-			else if (Math.abs(vel.velocity.x) > 0)
-			{
-				nextAnim = 'run';
+				if (Math.abs(vel.velocity.x) > 0)
+				{
+					nextAnim = 'run';
+				}
+				else
+				{
+					nextAnim = 'idle';
+				}
 			}
 			else
 			{
-				nextAnim = 'idle';
+				if (vel.velocity.y > 0)
+				{
+					nextAnim = 'fall';
+				}
+				else if (vel.velocity.y <= 0)
+				{
+					nextAnim = 'jump';
+				}
 			}
 			
 			if (nextAnim != anim.currentAnimation)

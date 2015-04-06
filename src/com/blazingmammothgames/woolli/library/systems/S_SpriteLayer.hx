@@ -37,7 +37,7 @@ class S_SpriteLayer extends System
 			// draw it
 			var p:Vector = Vector.roundToOne(bounds.min);
 			
-			var x:Float = Math.fround(p.x - sprite.root.x + (sprite.flipped ? bounds.size.x : 0));
+			var x:Float = Math.fround(p.x - sprite.root.x + (sprite.flipped ? (bounds.size.x + (sprite.root.x * 2)) : 0));
 			var y:Float = Math.fround(p.y - sprite.root.y);
 			
 			tileSheet.tileSheet.drawTiles(container.graphics, [x, y, sprite.tileNumber, (sprite.flipped ? -1 : 1) , 0, 0, 1], false, Tilesheet.TILE_TRANS_2x2 );

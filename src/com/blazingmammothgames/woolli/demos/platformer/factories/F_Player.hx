@@ -9,6 +9,7 @@ import com.blazingmammothgames.woolli.library.components.C_Acceleration;
 import com.blazingmammothgames.woolli.library.components.C_Animated;
 import com.blazingmammothgames.woolli.library.components.C_Collider;
 import com.blazingmammothgames.woolli.library.components.C_DebugDraw;
+import com.blazingmammothgames.woolli.library.components.C_GroundDetector;
 import com.blazingmammothgames.woolli.library.components.C_Sprite;
 import com.blazingmammothgames.woolli.library.components.C_TileSheet;
 import com.blazingmammothgames.woolli.library.components.C_Velocity;
@@ -28,7 +29,7 @@ class F_Player
 		player.stateMachine
 			.createState("living")
 				.ensureComponent(C_AABB, function(e:Entity):Component {
-					return new C_AABB(location, new Vector(8, 8));
+					return new C_AABB(location, new Vector(4, 8));
 				})
 				.ensureComponent(C_Velocity, function(e:Entity):Component {
 					return new C_Velocity(150, 0);
@@ -43,7 +44,7 @@ class F_Player
 					return new C_PlatformerKeyboardControl(Keyboard.A, Keyboard.D, Keyboard.W);
 				})
 				.ensureComponent(C_Sprite, function(e:Entity):Component {
-					return new C_Sprite(5, new Vector(0, 0));
+					return new C_Sprite(5, new Vector(4, 0));
 				})
 				.ensureComponent(C_Animated, function(e:Entity):Component {
 					var animC:C_Animated = new C_Animated();
@@ -72,9 +73,12 @@ class F_Player
 					}
 					return characterSheet;
 				})
-				/*.ensureComponent(C_DebugDraw, function(e:Entity):Component {
+				.ensureComponent(C_GroundDetector, function(e:Entity):Component {
+					return new C_GroundDetector();
+				})
+				.ensureComponent(C_DebugDraw, function(e:Entity):Component {
 					return new C_DebugDraw();
-				})*/;
+				});
 		
 		player.stateMachine.changeState("living");
 		return player;
